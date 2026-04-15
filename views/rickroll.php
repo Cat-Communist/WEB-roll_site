@@ -7,10 +7,10 @@
 
 <ul class="nav nav-pills">
   <li class="nav-item">
-    <a class="nav-link <?= $is_image ? "active" : '' ?>" aria-current="page" href="/rickroll/image">Картинка</a>
+    <a class="nav-link {{title == "Рикролл" ? "active"}}" aria-current="page" href="/rickroll/image">Картинка</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link <?= $is_info ? "active" : '' ?>" href="/rickroll/info">Описание</a>
+    <a class="nav-link {{title == "active" ? "active"}}" href="/rickroll/info">Описание</a>
   </li>
 </ul>
 
