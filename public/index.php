@@ -14,13 +14,18 @@
 
 
   $loader = new \Twig\Loader\FilesystemLoader("../views");
-  $twig = new \Twig\Environment($loader);
+  $twig = new \Twig\Environment($loader, [
+    "debug" => true
+  ]);
+  $twig->addExtension(new \Twig\Extension\DebugExtension());
 
   $title = "";
   $template = "";
 
   $context = [];
   $controller = new Controller404($twig);
+
+  $pdo = new PDO("mysql:host=localhost;dbname=meme_collection;charset=utf8", "root", "");
 
   $url = $_SERVER["REQUEST_URI"];
   if ($url == "/") {
@@ -57,6 +62,7 @@
   }
 
   if ($controller) {
+    $controller->setPDO($pdo);
     $controller->get();
   }
 ?>

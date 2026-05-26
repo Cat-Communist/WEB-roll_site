@@ -1,24 +1,77 @@
 {% extends "__layout.twig" %}
 {% block content %}
-{% from "__btn.twig" import btn %}
+	{% from "__btn.twig" import btn %}
+	{# <pre>
+	        {{dump(rickrolls)}}
+	    </pre> #}
+	{# <ul class="list-group">
+								    <li class="list-group-item">
+								        {{ btn("Рикролл", "/rickroll", true) }}
+								        {{ btn("Картинка", "/rickroll/image", false) }}
+								        {{ btn("Описание", "/rickroll/info", false) }}
+								    </li>
+								    <li class="list-group-item">
+								        {{ btn("СтикБаг", "/stickbug", true) }}
+								        {{ btn("Картинка", "/stickbug/image", false) }}
+								        {{ btn("Картинка", "/stickbug/info", false) }}
+								    </li>
+								    <li class="list-group-item">
+								        {{ btn("СтикРолл", "/stickroll", true) }}
+								        {{ btn("Картинка", "/stickroll/image", false) }}
+								        {{ btn("Картинка", "/stickroll/info", false) }}
+								    </li>
+								</ul> #}
+		<ul class="meme-cards"> {% for meme in rickrolls %}
+			<li class="card">
+				<img src="{{meme.image}}" alt="{{meme.image}}" class="img-fluid border rounded">
+				<div class="buttons">
+					<div class="top-btn">
+						{{btn(meme.title, meme.url, true)}}
+					</div>
+					<div class="spec-btns">
+						{{btn("Картинка", meme.url ~ "/image", false)}}
+						{{btn("Описание", meme.url ~ "/info", false)}}
+					</div>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
+	<img src="../images/sit.png" alt="sit.png" style="display: block; margin-left: auto; margin-right: auto">
 
-<ul class="list-group">
-    <li class="list-group-item">
-        {{ btn("Рикролл", "/rickroll", true) }}
-        {{ btn("Картинка", "/rickroll/image", false) }}
-        {{ btn("Описание", "/rickroll/info", false) }}
-    </li>
-    <li class="list-group-item">
-        {{ btn("СтикБаг", "/stickbug", true) }}
-        {{ btn("Картинка", "/stickbug/image", false) }}
-        {{ btn("Картинка", "/stickbug/info", false) }}
-    </li>
-    <li class="list-group-item">
-        {{ btn("СтикРолл", "/stickroll", true) }}
-        {{ btn("Картинка", "/stickroll/image", false) }}
-        {{ btn("Картинка", "/stickroll/info", false) }}
-    </li>
-</ul>
-<img src="../images/sit.png" alt="sit.png" style="display: block; margin-left: auto; margin-right: auto">
+	<style>
+		.meme-cards {
+			display: flex;
+			padding: 0;
+			justify-content: space-around;
+			width: 100%;
+			gap: 20px
+		}
+
+		.card {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			align-items: center;
+			border: solid-black;
+			flex: 1;
+			padding: 0.5rem
+		}
+
+		.buttons {
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			padding-top: 0.3rem;
+		}
+
+        .top-btn .btn {
+            width: 100%;
+        }
+
+		.spec-btns {
+			display: flex;
+			/* justify-content: space-around; */
+		}
+	</style>
 
 {% endblock %}

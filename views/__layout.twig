@@ -7,26 +7,26 @@
 		<title>{{title}}</title>
 	</head>
 	<body>
-		<div class="container">
-			<nav class="navbar navbar-expand-lg bg-light">
-				<div class="container">
-					<a class="navbar-brand">
-						<i class="fa-brands fa-reddit fa-2x"></i>
-					</a>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="navbarNav">
-						<ul class="navbar-nav">
+		<nav class="navbar navbar-expand-lg bg-light">
+			<div class="container">
+				<a class="navbar-brand">
+					<i class="fa-brands fa-reddit fa-2x"></i>
+				</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
 						{% for item in menu %}
 							<li class="nav-item">
-								<a class="nav-link {{item.title == title ? "active" }}" aria-current="page" href="{{item.url}}">{{item.title}}</a>
+								<a class="nav-link {{item.title == title ? " active" }}" aria-current="page" href="{{item.url}}">{{item.title}}</a>
 							</li>
 						{% endfor %}
-						</ul>
-					</div>
+					</ul>
 				</div>
-			</nav>
+			</div>
+		</nav>
+		<div class="container">
 			{% block content %}
 				{% from "__btn.twig" import btn %}
 			{% endblock %}
