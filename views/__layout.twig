@@ -27,7 +27,9 @@
 					</div>
 				</div>
 			</nav>
-			{% block content %}{% endblock %}
+			{% block content %}
+				{% from "__btn.twig" import btn %}
+			{% endblock %}
 		</div>
 	</body>
 	<script src="https://kit.fontawesome.com/98b8c9e926.js" crossorigin="anonymous"></script>
