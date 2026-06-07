@@ -1,5 +1,6 @@
 <?php
   require_once "../vendor/autoload.php";
+  require_once "../framework/autoload.php";
   require_once "../controllers/MainController.php";
   require_once "../controllers/RickRollController.php";
   require_once "../controllers/RickRollImageController.php";
@@ -11,6 +12,7 @@
   require_once "../controllers/StickRollImageController.php";
   require_once "../controllers/StickRollInfoController.php";
   require_once "../controllers/Controller404.php";
+  require_once "../controllers/ObjectController.php";
 
 
   $loader = new \Twig\Loader\FilesystemLoader("../views");
@@ -21,48 +23,15 @@
 
   $title = "";
   $template = "";
-
   $context = [];
-  $controller = new Controller404($twig);
 
   $pdo = new PDO("mysql:host=localhost;dbname=meme_collection;charset=utf8", "root", "");
 
-  $url = $_SERVER["REQUEST_URI"];
-  if ($url == "/") {
-    $controller = new MainController($twig);
-  } 
-  elseif (preg_match("#^/rickroll#", $url)) {
-    $controller = new RickRollController($twig);
-    if (preg_match("#^/rickroll/image#", $url)) {
-      $controller = new RickRollImageController($twig);
-    }
-    elseif (preg_match("#^/rickroll/info#", $url)) {
-      $controller = new RickRollInfoController($twig);
-    }
-  }
-  elseif (preg_match("#^/stickbug#", $url)) {
-    $controller = new StickBugController($twig);
-    
-    if (preg_match("#^/stickbug/image#", $url)) {
-      $controller = new StickBugImageController($twig);
-    }
-    elseif (preg_match("#^/stickbug/info#", $url)) {
-      $controller = new StickBugInfoController($twig);
-    }
-  }
-  elseif (preg_match("#^/stickroll#", $url)) {
-    $controller = new StickRollController($twig);
+  $router = new Router($twig, $pdo);
+  $router->add("/", MainController::class);
+  $router->add("/rickroll", RickRollController::class);
+  $router->add("/rickrolls/(?P<id>\d+)/(?P<type>\w+)", ObjectController::class);
+  $router->add("/rickrolls/(?P<id>\d+)/(?P<type>\w+)", InfoController::class);
 
-    if (preg_match("#^/stickroll/image#", $url)) {
-      $controller = new StickRollImageController($twig);
-    }
-    elseif (preg_match("#^/stickroll/info#", $url)) {
-      $controller = new StickRollInfoController($twig);
-    }
-  }
-
-  if ($controller) {
-    $controller->setPDO($pdo);
-    $controller->get();
-  }
+  $router->get_or_default(Controller404::class);
 ?>

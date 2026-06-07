@@ -24,7 +24,8 @@
             ]
         ];
 
-        public function __construct($twig) {
+        public function setTwig($twig)
+        {
             $this->twig = $twig;
         }
 
