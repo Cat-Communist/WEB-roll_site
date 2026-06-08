@@ -8,6 +8,7 @@
   require_once "../controllers/MemeCreateController.php";
   require_once "../controllers/MemeTypeCreateController.php";
   require_once "../controllers/MemeDeleteController.php";
+  require_once "../controllers/MemeUpdateController.php";
 
   $loader = new \Twig\Loader\FilesystemLoader("../views");
   $twig = new \Twig\Environment($loader, [
@@ -28,5 +29,6 @@
   $router->add("/rickrolls/create-type", MemeTypeCreateController::class);
   // $router->add("/rickrolls/delete", MemeDeleteController::class);
   $router->add("/rickrolls/(?P<id>\d+)/delete", MemeDeleteController::class);
+  $router->add("/rickrolls/(?P<id>\d+)/edit", MemeUpdateController::class);
   $router->get_or_default(Controller404::class);
 ?>
