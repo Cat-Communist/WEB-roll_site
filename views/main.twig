@@ -1,9 +1,16 @@
 {% extends "__layout.twig" %}
 {% block content %}
 	{% from "__btn.twig" import btn %}
-		<ul class="meme-cards"> 
+	<ul class="meme-cards">
 		{% for meme in rickrolls %}
-			<li class="card">
+			<li class="card position-relative">
+				<div class="position-absolute" style="right: 4px; top: 4px">
+					<form action="/rickrolls/{{meme.id}}/delete" method="POST">
+						<button class="btn btn-danger">
+							<i class="fas fa-times"></i>
+						</button>
+					</form>
+				</div>
 				<img src="{{meme.image}}" alt="{{meme.image}}" class="img-fluid border rounded">
 				<div class="buttons">
 					<div class="top-btn">
@@ -42,11 +49,11 @@
 			padding-top: 0.3rem;
 		}
 
-        .top-btn .btn {
-            width: 100%;
-        }
+		.top-btn .btn {
+			width: 100%;
+		}
 
-		.spec-btns { 
+		.spec-btns {
 			display: flex;
 			justify-content: space-around;
 			flex-wrap: wrap;
