@@ -12,19 +12,27 @@
             ],
             [
             "title" => "Рикролл",
-            "url"=> "/rickroll",
+            "url"=> "/rickrolls/2",
             ],
             [
             "title" => "СтикБаг",
-            "url"=> "/stickbug",
+            "url"=> "/rickrolls/3",
             ],
             [
             "title"=> "СтикРолл",
-            "url"=> "/stickroll",
+            "url"=> "/rickrolls/4",
+            ],
+            [
+            "title"=> "ГетБлок",
+            "url"=> "/rickrolls/5",
+            ],
+            [
+            "title"=> "Рик",
+            "url"=> "/rickrolls/6",
             ]
         ];
 
-        public function __construct($twig) {
+        public function setTwig($twig) {
             $this->twig = $twig;
         }
 
@@ -32,6 +40,7 @@
         public function getContext(): array
         {
             $context = parent::getContext();
+
             $context["title"] = $this->title;
             $context["menu"] = $this->menu;
             

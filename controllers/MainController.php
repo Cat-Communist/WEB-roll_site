@@ -1,7 +1,6 @@
 <?php
-    require_once "TwigBaseController.php";
-
-    class MainController extends TwigBaseController {
+    require_once "BaseMemeTwigController.php";
+    class MainController extends BaseMemeTwigController {
         public $template = "main.twig";
         public $title = "Главная";
 
@@ -9,7 +8,13 @@
         {
             $context = parent::getContext();
 
-            $query = $this->pdo->query("SELECT * FROM rickrolls");
+            if (isset($_GET["type"])) {
+                $query = $this->pdo->prepare("SELECT * FROM rickrolls WHERE type = :type");
+                $query->bindValue("type", $_GET["type"]);
+                $query->execute();
+            } else {
+                $query = $this->pdo->query("SELECT * FROM rickrolls");
+            }
 
             $context["rickrolls"] = $query->fetchAll();
 

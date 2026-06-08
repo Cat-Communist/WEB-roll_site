@@ -17,9 +17,12 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav">
-						{% for item in menu %}
+						<li class="nav-item">
+							<a class="nav-link {{title == "Главная" ? "active"}}" aria-current="page" href="/">Главная</a>
+						</li>
+						{% for type in types %}
 							<li class="nav-item">
-								<a class="nav-link {{item.title == title ? " active" }}" aria-current="page" href="{{item.url}}">{{item.title}}</a>
+								<a class="nav-link" aria-current="page" href="/?type={{type.type}}">{{type.type|title}}</a>
 							</li>
 						{% endfor %}
 					</ul>
