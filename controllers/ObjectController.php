@@ -41,12 +41,12 @@
             return $context;
         }
 
-        public function get() {
+        public function get(array $context) {
             if (isset($_GET["show"])) {
                 $this->template = "base_" . $_GET["show"] . ".twig";
             }
 
-            parent::get();
+            parent::get($context);
         }
     }
 ?>

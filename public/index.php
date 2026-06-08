@@ -4,8 +4,9 @@
   require_once "../controllers/MainController.php";
   require_once "../controllers/Controller404.php";
   require_once "../controllers/ObjectController.php";
-  require_once "../controllers/ObjectInfoController.php";
-  require_once "../controllers/ObjectImageController.php";
+  require_once "../controllers/SearchController.php";
+  require_once "../controllers/MemeCreateController.php";
+  require_once "../controllers/MemeTypeCreateController.php";
 
   $loader = new \Twig\Loader\FilesystemLoader("../views");
   $twig = new \Twig\Environment($loader, [
@@ -21,7 +22,8 @@
   $router = new Router($twig, $pdo);
   $router->add("/", MainController::class);
   $router->add("/rickrolls/(?P<id>\d+)", ObjectController::class); 
-  // $router->add("/rickrolls/(?P<id>\d+)/info", ObjectInfoController::class);
-  // $router->add("/rickrolls/(?P<id>\d+)/image", ObjectImageController::class);
+  $router->add("/search", SearchController::class);
+  $router->add("/rickrolls/create", MemeCreateController::class);
+  $router->add("/rickrolls/create-type", MemeTypeCreateController::class);
   $router->get_or_default(Controller404::class);
 ?>
