@@ -3,6 +3,7 @@
 
     class MemeTypeCreateController extends BaseMemeTwigController {
         public $template = "meme_type_create.twig";
+        public $title = "Создание вида";
         
         public function get(array $context) {
             parent::get($context);

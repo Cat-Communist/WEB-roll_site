@@ -1,22 +1,45 @@
 {% extends "__layout.twig" %}
 
 {% block content %}
-{% from "__btn.twig" import btn %}
-	<ul class="nav nav-pills">
-		<li class="nav-item">
-			{{ btn("Картинка",  image_url, is_image) }}
-		</li>
-		<li class="nav-item">
-			{{ btn("Описание", info_url, is_info) }}
-		</li>
-	</ul>
-	{% block object_content %}
-		<h1>{{description}}</h1>
-		<ul class="list-group">
-			<li class="list-group-item">
-				Выберите то, что хотите посмотреть
-			</li>
-		</ul>
-	{% endblock %}
+	{% from "__btn.twig" import btn %}
+	Сообщение из сессии:
+	{{session_message}}
+	<br>
+	Последние сообщения:
+	<br>
+	{% for m in messages %}
+		{{m}}
+		<br>
+	{% endfor %}
+	<hr>
+	<div class="row">
+		<div class="col-9">
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+					{{ btn("Картинка",  image_url, is_image) }}
+				</li>
+				<li class="nav-item">
+					{{ btn("Описание", info_url, is_info) }}
+				</li>
+			</ul>
+			{% block object_content %}
+				<h1>{{description}}</h1>
+				<ul class="list-group">
+					<li class="list-group-item">
+						Выберите то, что хотите посмотреть
+					</li>
+				</ul>
+			{% endblock %}
+		</div>
+		<div class="col-3">
+			Вы посетили:
+			<br>
+			{% for h in history %}
+				<div class="alert alert-primary" role="alert">
+					<a href="{{h}}">{{h}}</a>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
 
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+    <div class="d-flex justify-content-center mt-5">
+        <form action="/login" method="POST" style="width: 400px;">
+            <div class="mb-3">
+                <label class="form-label">Логин</label>
+                <input type="text" class="form-control" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Пароль</label>
+                <input type="password" class="form-control" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Войти</button>
+        </form>
+    </div>
+{% endblock %}

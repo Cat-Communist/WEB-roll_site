@@ -2,6 +2,7 @@
     require_once "BaseMemeTwigController.php";
     class SearchController extends BaseMemeTwigController {
         public $template = "search.twig";
+        public $title = "Поиск по мемам";
 
         public function getContext() : array {
             $context = parent::getContext();

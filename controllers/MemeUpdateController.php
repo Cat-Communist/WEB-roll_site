@@ -3,6 +3,7 @@
 
     class MemeUpdateController extends BaseMemeTwigController {
         public $template = "meme_create.twig";
+        public $title = "Изменение мема";
 
         public function get(array $context) {
             $id = $this->params["id"];
