@@ -44,6 +44,8 @@
             $context["title"] = $this->title;
             $context["menu"] = $this->menu;
             $context["history"] = isset($_SESSION["history"]) ? $_SESSION["history"] : '';
+
+            $context["history"] = $_SESSION["history"];
             
             return $context;
         }

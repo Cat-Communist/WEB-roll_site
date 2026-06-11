@@ -22,7 +22,7 @@
 						</li>
 						{% for type in types %}
 							<li class="nav-item">
-								<a class="nav-link" aria-current="page" href="/?type={{type.title}}">{{type.title|title}}</a>
+								<a class="nav-link" aria-current="page" href="/?type={{type.id}}">{{type.title|title}}</a>
 							</li>
 						{% endfor %}
 						<li class="nav-item">
@@ -36,7 +36,7 @@
 						</li>
 					</ul>
 					<form action="/set-welcome">
-						<input type="text" name="message" class="form-control mr-2 ml-2">
+						<input type="text" name="message" placeholder="Сообщение сессии" class="form-control mr-2 ml-2">
 					</form>
 					<form action="/logout">
 						<button type="submit" class="btn btn-danger">Выйти</button>
@@ -45,9 +45,22 @@
 			</div>
 		</nav>
 		<div class="container">
-			{% block content %}
-				{% from "__btn.twig" import btn %}
-			{% endblock %}
+			<div class="row">
+				<div class="col-8">
+					{% block content %}
+						{% from "__btn.twig" import btn %}
+					{% endblock %}
+				</div>
+				<div class="col-4">
+					Вы посетили:
+					<br>
+					{% for h in history %}
+						<div class="alert alert-primary" role="alert">
+							<a href="{{h}}">{{h}}</a>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
 	</body>
 	<script src="https://kit.fontawesome.com/98b8c9e926.js" crossorigin="anonymous"></script>

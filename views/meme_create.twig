@@ -7,50 +7,36 @@
 	{% if message %}
 		<div class="alert alert-info">
 			{{message}}
-			<a href="/rickrolls/{{id}}">Открыть новый мем</a>
+			<a href="/rickrolls/{{object.id}}">Открыть</a>
 		</div>
 	{% endif %}
-
-	<div class="row">
-		<div class="col-9">
-			<form action="" enctype="multipart/form-data" method="POST" class="row g-3">
-				<div class="col-4">
-					<label class="form-label">Название</label>
-					<input type="text" class="form-control" name="title" value="{{object.title}}">
-				</div>
-				<div class="col-4">
-					<label class="form-label">Фраза шутки</label>
-					<input type="text" class="form-control" name="description">
-				</div>
-				<div class="col-4">
-					<label class="form-label">Тип</label>
-					<select class="form-control" name="type">
-						{% for type in types %}
-							<option value="{{type.title}}" {% if type.title == object.type %} selected {% endif %}>{{type.title}}</option>
-						{% endfor %}
-					</select>
-				</div>
-				<div class="mb-3">
-					<label for="formFile" class="form-label">Картинка</label>
-					<input class="form-control" type="file" id="formFile" name="image">
-				</div>
-				<div class="col-12">
-					<textarea name="info" placeholder="Описание..." class="form-control" rows="5">{{object.info}}</textarea>
-				</div>
-				<div class="col-12 text-end">
-					<button type="submit" class="btn btn-primary">Добавить</button>
-				</div>
-			</form>
+	<form action="" enctype="multipart/form-data" method="POST" class="row g-3">
+		<div class="col-4">
+			<label class="form-label">Название</label>
+			<input type="text" class="form-control" name="title" value="{{object.title}}">
 		</div>
-		<div class="col-3">
-			Вы посетили:
-			<br>
-			{% for h in history %}
-				<div class="alert alert-primary" role="alert">
-					<a href="{{h}}">{{h}}</a>
-				</div>
-			{% endfor %}
+		<div class="col-4">
+			<label class="form-label">Фраза шутки</label>
+			<input type="text" class="form-control" name="description" value={{object.description}}>
 		</div>
-	</div>
+		<div class="col-4">
+			<label class="form-label">Тип</label>
+			<select class="form-control" name="type">
+				{% for type in types %}
+					<option value="{{type.id}}" {% if type.id == object.type_id %} selected {% endif %}>{{type.title|title}}</option>
+				{% endfor %}
+			</select>
+		</div>
+		<div class="mb-3">
+			<label for="formFile" class="form-label">Картинка</label>
+			<input class="form-control" type="file" id="formFile" name="image">
+		</div>
+		<div class="col-12">
+			<textarea name="info" placeholder="Описание..." class="form-control" rows="5">{{object.info}}</textarea>
+		</div>
+		<div class="col-12 text-end">
+			<button type="submit" class="btn btn-primary">Сохранить</button>
+		</div>
+	</form>
 
 {% endblock %}

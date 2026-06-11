@@ -13,6 +13,7 @@
   require_once "../controllers/LoginController.php";
   require_once "../controllers/LogoutController.php";
   require_once "../middlewares/LoginRequiredMiddleWare.php";
+  require_once "../middlewares/HistoryMiddleWare.php";
 
   session_set_cookie_params(60 * 60 * 10);
   session_start();
@@ -30,19 +31,25 @@
 
   $router = new Router($twig, $pdo);
   $router->add("/", MainController::class)
-    ->middleware(new LoginRequiredMiddleWare());
+    ->middleware(new LoginRequiredMiddleWare())
+    ->middleware(new HistoryMiddleWare());
   $router->add("/rickrolls/(?P<id>\d+)", ObjectController::class)
-    ->middleware(new LoginRequiredMiddleWare());
+    ->middleware(new LoginRequiredMiddleWare())
+    ->middleware(new HistoryMiddleWare());
   $router->add("/search", SearchController::class)
-    ->middleware(new LoginRequiredMiddleWare());
+    ->middleware(new LoginRequiredMiddleWare())
+    ->middleware(new HistoryMiddleWare());
   $router->add("/rickrolls/create", MemeCreateController::class)
-    ->middleware(new LoginRequiredMiddleWare());
+    ->middleware(new LoginRequiredMiddleWare())
+    ->middleware(new HistoryMiddleWare());
   $router->add("/rickrolls/create-type", MemeTypeCreateController::class)
-    ->middleware(new LoginRequiredMiddleWare());
+    ->middleware(new LoginRequiredMiddleWare())
+    ->middleware(new HistoryMiddleWare());
   $router->add("/rickrolls/(?P<id>\d+)/delete", MemeDeleteController::class)
     ->middleware(new LoginRequiredMiddleWare());
   $router->add("/rickrolls/(?P<id>\d+)/edit", MemeUpdateController::class)
-    ->middleware(new LoginRequiredMiddleWare());
+    ->middleware(new LoginRequiredMiddleWare())
+    ->middleware(new HistoryMiddleWare());
   $router->add("/login", LoginController::class);
   $router->add("/logout", LogoutController::class);
   $router->add("/set-welcome", SessionController::class);

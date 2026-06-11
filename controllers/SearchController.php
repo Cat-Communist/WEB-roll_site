@@ -15,18 +15,26 @@
 SELECT id, title, description
 FROM rickrolls
 WHERE (:title = '' OR title like CONCAT('%', :title, '%'))
-    AND (type = :type OR :type = 'все') 
+    AND (type_id = :type_id OR :type_id = 'все') 
     AND (:description = '' OR description like CONCAT('%', :description, '%'))
 EOL; 
 
             $query = $this->pdo->prepare($sql);
 
             $query->bindValue("title", $title);
-            $query->bindValue("type", $type);
+            $query->bindValue("type_id", $type);
             $query->bindValue("description", $description);
             $query->execute();
 
             $context["memes"] = $query->fetchAll();
+
+            $types = $this->pdo->query("SELECT * FROM rickroll_types")->fetchAll();
+
+            $context["types"] = $types;
+
+            $context["type"] = $type;
+            $context["title"] = $title;
+            $context["description"] = $description;
 
             return $context;
         }

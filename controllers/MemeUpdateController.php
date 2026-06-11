@@ -25,8 +25,8 @@ EOL;
         public function getContext() : array {
             $context = parent::getContext();
 
-            $query = $this->pdo->query("SELECT title FROM rickroll_types ORDER BY 1");
-            $query->execute();
+            $query = $this->pdo->query("SELECT * FROM rickroll_types ORDER BY 1");
+            $query->execute(); 
 
             $types = $query->fetchAll();
             $context["types"] = $types;
@@ -35,7 +35,17 @@ EOL;
         }
 
         public function post(array $context) {
-            $id = $this->params["id"];
+            $id = $this->params["id"];    
+        
+            $sql = <<<EOL
+SELECT image FROM rickrolls 
+WHERE id = :id
+EOL;
+            $query = $this->pdo->prepare($sql);
+            $query->bindValue("id", $id);
+            $query->execute();
+            
+            $current_image = $query->fetch()["image"];
 
             $title = $_POST['title'];
             $description = $_POST['description'];
@@ -47,27 +57,29 @@ EOL;
 
             move_uploaded_file($tmp_name, "../public/media/$name");
             
-            $image_url = "/media/$name";
+            $image_url = $name ? "/media/$name" : $current_image;
+
+            // echo "<pre>";
+            // print_r("type: $type");
+            // echo "</pre>";
 
             $sql = <<<EOL
-    UPDATE rickrolls
-    SET title = :title, description = :description, 
-    type = :type, info = :info, image = :image_url
-    WHERE id = :id
-    EOL;
-
+UPDATE rickrolls
+SET title = :title, description = :description, 
+type_id = :type_id, info = :info, image = :image_url
+WHERE id = :id
+EOL;
             $query = $this->pdo->prepare($sql);
             $query->bindValue("id", $id);
             $query->bindValue("title", $title);
             $query->bindValue("description", $description);
-            $query->bindValue("type", $type);
+            $query->bindValue("type_id", $type);
             $query->bindValue("info", $info);
             $query->bindValue("image_url", $image_url);
             
             $query->execute();
             
             $context['message'] = "Вы успешно обновили мем: $title";
-            $context['id'] = $this->pdo->lastInsertId(); 
 
             $this->get($context);
         }

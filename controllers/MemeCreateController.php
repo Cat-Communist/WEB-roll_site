@@ -11,7 +11,7 @@
         public function getContext() : array {
             $context = parent::getContext();
 
-            $query = $this->pdo->query("SELECT title FROM rickroll_types ORDER BY 1");
+            $query = $this->pdo->query("SELECT * FROM rickroll_types ORDER BY 1");
             $query->execute();
 
             $types = $query->fetchAll();
@@ -34,14 +34,14 @@
             $image_url = "/media/$name";
 
             $sql = <<<EOL
-    INSERT INTO rickrolls(title, description, type, info, image)
-    VALUES(:title, :description, :type, :info, :image_url)
+    INSERT INTO rickrolls(title, description, type_id, info, image)
+    VALUES(:title, :description, :type_id, :info, :image_url)
     EOL;
 
             $query = $this->pdo->prepare($sql);
             $query->bindValue("title", $title);
             $query->bindValue("description", $description);
-            $query->bindValue("type", $type);
+            $query->bindValue("type_id", $type);
             $query->bindValue("info", $info);
             $query->bindValue("image_url", $image_url);
             

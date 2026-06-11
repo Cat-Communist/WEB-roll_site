@@ -1,48 +1,35 @@
 {% extends "__layout.twig" %}
 {% block content %}
 	{% from "__btn.twig" import btn %}
-	<div class="row">
-		<div class="col-9">
-			<ul class="meme-cards">
-				{% for meme in rickrolls %}
-					<li class="card position-relative">
-						<div class="position-absolute" style="right: 4px; top: 4px">
-							<form action="/rickrolls/{{meme.id}}/delete" method="POST">
-								<button class="btn btn-danger">
-									<i class="fas fa-times"></i>
-								</button>
-							</form>
-						</div>
-						<div class="position-absolute" style="right: 4px; top: 50px">
-							<a class="btn btn-primary" href="/rickrolls/{{meme.id}}/edit">
-								<i class="fa-solid fa-pencil"></i>
-							</a>
-						</div>
-						<img src="{{meme.image}}" alt="{{meme.image}}" class="img-fluid border rounded">
-						<div class="buttons">
-							<div class="top-btn">
-								{{btn(meme.title, "rickrolls/" ~ meme.id, true)}}
-							</div>
-							<div class="spec-btns">
-								{{btn("Картинка", "rickrolls/" ~ meme.id ~ "?show=image", false)}}
-								{{btn("Описание", "rickrolls/" ~ meme.id ~ "?show=info", false)}}
-							</div>
-						</div>
-					</li>
-				{% endfor %}
-			</ul>
-			<img src="../images/sit.png" alt="sit.png" style="display: block; margin-left: auto; margin-right: auto">
-		</div>
-		<div class="col-3">
-			Вы посетили:
-			<br>
-			{% for h in history %}
-				<div class="alert alert-primary" role="alert">
-					<a href="{{h}}">{{h}}</a>
+	<ul class="meme-cards">
+		{% for meme in rickrolls %}
+			<li class="card position-relative">
+				<div class="position-absolute" style="right: 4px; top: 4px">
+					<form action="/rickrolls/{{meme.id}}/delete" method="POST">
+						<button class="btn btn-danger">
+							<i class="fas fa-times"></i>
+						</button>
+					</form>
 				</div>
-			{% endfor %}
-		</div>
-	</div>
+				<div class="position-absolute" style="right: 4px; top: 50px">
+					<a class="btn btn-primary" href="/rickrolls/{{meme.id}}/edit">
+						<i class="fa-solid fa-pencil"></i>
+					</a>
+				</div>
+				<img src="{{meme.image}}" alt="{{meme.image}}" class="img-fluid border rounded">
+				<div class="buttons">
+					<div class="top-btn">
+						{{btn(meme.title, "rickrolls/" ~ meme.id, true)}}
+					</div>
+					<div class="spec-btns">
+						{{btn("Картинка", "rickrolls/" ~ meme.id ~ "?show=image", false)}}
+						{{btn("Описание", "rickrolls/" ~ meme.id ~ "?show=info", false)}}
+					</div>
+				</div>
+			</li>
+		{% endfor %}
+	</ul>
+	<img src="../images/sit.png" alt="sit.png" style="display: block; margin-left: auto; margin-right: auto">
 
 	<style>
 		.meme-cards {

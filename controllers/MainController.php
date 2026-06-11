@@ -9,8 +9,8 @@
             $context = parent::getContext();
 
             if (isset($_GET["type"])) {
-                $query = $this->pdo->prepare("SELECT * FROM rickrolls WHERE type = :type");
-                $query->bindValue("type", $_GET["type"]);
+                $query = $this->pdo->prepare("SELECT * FROM rickrolls WHERE type_id = :type_id");
+                $query->bindValue("type_id", $_GET["type"]);
                 $query->execute();
             } else {
                 $query = $this->pdo->query("SELECT * FROM rickrolls");

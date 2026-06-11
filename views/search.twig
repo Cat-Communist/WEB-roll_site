@@ -1,37 +1,21 @@
 {% extends "__layout.twig" %}
 
 {% block content %}
-	{# Поиск #}
-
-	{# <form action="">
-				<select name="type">
-					<option value="рик">Рик</option>
-					<option value="нерик">Нерик</option>
-					<option value="все">Все</option>
-				</select>
-		
-				<label>Название
-					<input type="text" name="title"></label>
-				<label>Описание
-					<input type="text" name="description"></label>
-		
-				<button type="submit">Найти</button>
-			</form> #}
-
     <form class="row"> 
         <label for="inputState" class="form-label">Вид рикролла</label>
         <div class="col">
 			<select name="type" id="inputState" class="form-select">
-				<option selected value="все">Все</option>
-				<option value="рик">Рик</option>
-				<option value="нерик">Нерик</option>
+				<option {{type == 'все' ? 'selected'}} value="все">Все</option>
+				{% for t in types %}
+					<option {{t.id == type ? 'selected'}} value="{{t.id}}">{{t.title|title}}</option>
+				{% endfor %}
 			</select>
 		</div>
 		<div class="col">
-			<input type="text" name="title" class="form-control" placeholder="Название" aria-label="First name">
+			<input type="text" name="title" class="form-control" placeholder="Название" aria-label="First name" value="{{title}}">
 		</div>
 		<div class="col">
-			<input type="text" name="description" class="form-control" placeholder="Описание" aria-label="Last name">
+			<input type="text" name="description" class="form-control" placeholder="Описание" aria-label="Last name" value="{{description}}">
 		</div>
         <div class="col">
             <button type="submit" class="btn btn-primary">Найти</button>

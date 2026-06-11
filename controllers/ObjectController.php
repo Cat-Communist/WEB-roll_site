@@ -38,9 +38,6 @@
                 $context["description"] = $data["description"];
             }
 
-            $context["session_message"] = $_SESSION["welcome_message"];
-            $context["messages"] = isset($_SESSION["messages"]) ? $_SESSION["messages"] : '';
-
             return $context;
         }
 

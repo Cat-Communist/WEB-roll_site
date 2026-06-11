@@ -1,9 +1,7 @@
 <?php
 
     class BaseMiddleware {
-        public function apply(BaseController $controller, array $context) {
-            
-        }
+        public function apply(BaseController $controller, array $context) {}
     }
 
 ?>
